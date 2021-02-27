@@ -40,7 +40,20 @@ class GetFullDesc():
         with open('jobs.html', 'w', encoding='utf-8') as jbs:
             jbs.write(full_desc)
         print("Done")
+
+    def careers24(self, url):
+        
+        url = f"https://careers24{url}"
+        soup = soup_fetcha(url)
+        full_desc = str(soup.select_one(".c24-vacancy-details-container"))
+        #full_desc += str(f'<a href={url} target="_blank" class="btn-outline-success btn btn-sm">Apply on LinkedIn</a>')
+        
+        #with open('jobs.html', 'w', encoding='utf-8') as jbs:
+        #    jbs.write(full_desc)
+        #print("Done")
         return full_desc
+
+        
 
 class Jobs():
 
@@ -75,9 +88,25 @@ class Jobs():
             job_list.append({"title": title,"meta" : meta, "href": href, "site" : "Indeed", "site_url" : "https://indeed.com"})
         return job_list
 
+
+    def careers24(self, query):
+        query = f"https://www.careers24.com/jobs/kw-{query}/rmt-incl/"
+        soup = soup_fetcha(query)
+        job_list = []
+        jobs = soup.select(".job-card")
+        for job in jobs:
+    
+            title = job.select_one('.job-card-head a').get_text()
+            href = job.select_one('.job-card-head a')["href"]
+            meta = job.select_one("ul")
+            #meta = meta[0:351]
+            job_list.append({"title": title,"meta" : meta, "href": href, "site" : "Careers24", "site_url" : "https://careers24.com"})
+        #print(job_list) 
+        return job_list
+
     def jobs(self, query):
     
-        job_list = self.linkedin(query) + self.indeed(query)
+        job_list = self.linkedin(query) + self.indeed(query) + self.careers24(query)
         return  sorted(job_list, key = lambda i:i["title"])
 
- 
+Jobs().careers24('python')

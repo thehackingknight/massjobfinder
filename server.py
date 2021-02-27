@@ -23,7 +23,7 @@ def jobs_router():
         site = request.get_json()['site']
 
         gfd = GetFullDesc()
-        gfd_methods = [gfd.indeed, gfd.linkedin]
+        gfd_methods = [gfd.indeed, gfd.linkedin,gfd.careers24]
         for method in gfd_methods:
 
             if site.lower() == method.__name__:
