@@ -2,23 +2,13 @@ import requests, logging
 from bs4 import BeautifulSoup
 import html
 
-def req(q):
-    url = f"https://indeed.com/jobs?q={q}"
-    res = requests.get(url)
-
-    soup = BeautifulSoup(res.text, "html.parser")
-    return soup
 
 def soup_fetcha(url):
 
-    s = BeautifulSoup(requests.get(url).text, "html.parser")
+    res = requests.get(url)
+    s = BeautifulSoup(res.text, "html.parser")
     return s
 
-def get_full_desc(url):
-
-    href_soup = soup_fetcha(f"https://indeed.com{url}")
-    full_desc = href_soup.select_one("#viewJobSSRRoot")
-    return full_desc
 
 class GetFullDesc():
 
@@ -39,11 +29,11 @@ class GetFullDesc():
         
         with open('jobs.html', 'w', encoding='utf-8') as jbs:
             jbs.write(full_desc)
-        print("Done")
+        return full_desc
 
     def careers24(self, url):
-        
-        url = f"https://careers24{url}"
+        print(url)
+        url = f"https://careers24.com{url}"
         soup = soup_fetcha(url)
         full_desc = str(soup.select_one(".c24-vacancy-details-container"))
         #full_desc += str(f'<a href={url} target="_blank" class="btn-outline-success btn btn-sm">Apply on LinkedIn</a>')
@@ -76,9 +66,14 @@ class Jobs():
 
     def indeed(self, query):
 
-        soup = req(query)
+        url = f"https://indeed.com/jobs?q={query}"
+        soup = soup_fetcha(url)
         job_list = []
         jobs = soup.select(".jobsearch-SerpJobCard.result")
+
+        with open('jobs.html', 'w') as jbs:
+
+            jbs.write(str(jobs))
         for job in jobs:
 
             title = job.select_one('.title').get_text()
