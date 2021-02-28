@@ -1,9 +1,40 @@
-$(document).ready(()=>{
+class UI {
+    toggleFilter() {
+
+        var filter = document.querySelector('#site')
+        if (window.location.href.includes("jobs")) {
+
+            //ENABLE THE FILTER FUNCTIONALITY IF THE JOBS ARE RENDERED
+            console.log("Jobs rendered!");
+            filter.disabled = false
+        } else {
+
+            console.log("Jobs not yet rendered!");
+            filter.disabled = true
+        }
+    }
+
+    displayName() {
+        console.log("Hey JJ");
+    }
+}
+
+
+
+$(document).ready(() => {
     //$(".full_desc").fadeOut()
 
-    if (window.innerWidth <= 540){
+    if (window.innerWidth <= 540) {
         $('#full-desc').hide()
     }
+
+    var ui = new UI()
+    ui.toggleFilter()
+    ui.displayName()
+
+    // COMING SOON...
+
+    /*
     $('body').click(e=>{
 
         var el = $(e.target)
@@ -17,23 +48,23 @@ $(document).ready(()=>{
           </a>`)
             }
        }
-    })
-   $('#loc').click(e=>{
+    }) */
+    $('#loc').click(e => {
         //$(e.target).hide()
         var parentDiv = $(e.target.parentElement)
-        if (parentDiv.hasClass('bt')){
+        if (parentDiv.hasClass('bt')) {
             parentDiv.removeClass('bt')
-            
-        $(e.target.parentElement).html('<input class="form-control" type="text" placeholder="Type a location">')
+
+            $(e.target.parentElement).html('<input class="form-control" type="text" placeholder="Type a location">')
         }
     })
 
-    
-    $(".more-form").submit(e=>{
+
+    $(".more-form").submit(e => {
         e.preventDefault();
 
         var parent = $(e.target).parents(".desc")[0]
-       
+
         //console.log(e.target)
         if ($(e.target).hasClass("more")) {
             $(e.target).addClass('less')
@@ -42,20 +73,20 @@ $(document).ready(()=>{
             //$(meta).hide()
 
             var url = e.target.more.id
-            var data = {url, site : e.target.dataset.url}
+            var data = { url, site: e.target.dataset.url }
             $("#full-desc div").html("<p class='center mt-100 loading'>Loading...</p>")
             $.ajax({
 
                 url: "/jobs",
                 type: "POST",
                 contentType: "application/json",
-                data : JSON.stringify(data),
-                success: function(res){
+                data: JSON.stringify(data),
+                success: function(res) {
                     console.log(res)
                     $("#full-desc div").html(res)
 
                     //Untoogle other buttons
-                    
+
                     if ($(".show-more").hasClass("btn-secondary")) {
                         $(".show-more").val("More")
                         $(".show-more").removeClass("btn-secondary")
@@ -70,14 +101,12 @@ $(document).ready(()=>{
                     $(e.target.more).removeClass("btn-outline-secondary")
                 },
 
-                error: function(err){
+                error: function(err) {
                     console.log(err)
                 }
 
             })
-        }
-
-        else if ($(e.target).hasClass("less")) {
+        } else if ($(e.target).hasClass("less")) {
 
 
             $(e.target).removeClass('less')
@@ -86,21 +115,21 @@ $(document).ready(()=>{
             $(e.target.more).removeClass("btn-secondary")
             $(e.target.more).addClass("btn-outline-secondary")
             $("#full-desc div").html("")
-            //$(meta).show()
+                //$(meta).show()
         }
 
 
-       
+
 
 
     })
 
-var options = document.querySelector('#site').options;
+    var options = document.querySelector('#site').options;
 
-    $('select').change(ev=>{
+    $('select').change(ev => {
 
         for (let i = 0; i < options.length; i++) {
-            var val = options[i].value 
+            var val = options[i].value
             $(`.${val}`).hide()
             if (val.toLowerCase() == ev.target.value.toLowerCase()) {
                 $(`.${val}`).show()
@@ -111,5 +140,6 @@ var options = document.querySelector('#site').options;
         console.log(ev.target.value);
     })
 
-})
 
+
+})

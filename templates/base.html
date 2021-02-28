@@ -17,7 +17,7 @@
 
 <body>
     <!-- As a link -->
-    <nav class="navbar navbar-light bg-light sticky-top">
+    <nav class="navbar navbar-dark bg-secondary sticky-top">
         <a class="navbar-brand center" href="/">MassJobFinder</a>
     </nav>
 
@@ -25,11 +25,11 @@
 
         <div class="head sticky-top60" style="z-index: 10;">
 
-            <div class="container" style="">
-                <h1 class="center mb-20" style="font-weight: bold;">Browse Jobs from the best Job posting sites here!</h1>
+            <div class="container mt-60">
+                <h1 class="h1-bg mb-20" style="font-weight: 500;text-transform: capitalize;">Browse Jobs from the best Job posting sites here!</h1>
                 <div id="filter" class="co mb-4">
                     <h1 class="title">Filter</h1>
-                    <select id="site" class="custom-select">
+                    <select disabled id="site" class="custom-select">
                     <option selected disabled>Site</option>
                     <option>Indeed</option>
                     <option>LinkedIn</option>
@@ -37,12 +37,14 @@
                     
                 </select>
                 </div>
+                <!--
                 <div class="co bt" id="loc">
                     <a class="btn btn-outline-secondary" id="loc-btn">
                 Location
               </a>
 
                 </div>
+                -->
                 <div class="co">
                     <form id="search-form" method="get" action="/jobs">
                         <div class="form-group">
