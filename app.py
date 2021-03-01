@@ -31,4 +31,4 @@ def jobs_router():
                 return str(desc)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

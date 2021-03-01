@@ -1,50 +1,43 @@
-{% extends "base.html"  %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div id="main-content" class="mt-50">
 
-  {% if jobs %}
-  <div class="card">
-    
-<div class="card-body row">
-      <div id="jobs-cont" class="col-sm">
-        <ul id="jobs" class="list-group">
-        {% for job in jobs %}
-          <li class="mb-50 list-group-item job {{ job.site }}">
-            <h1 class="title">{{ job.title }}</h1>
-            <p>Site: <a target="_blank" href="{{ job.site_url }}">{{ job.site }}</a></p>
-            <div class="desc">
-              <div class="meta-data">
-                <p class="meta">{{ job.meta | safe }}</p>
-                <div class="full-desc" style="display: none;"></div>
-                <form class="more-form more" data-url="{{ job.site }}">
-                  <input type="submit" value="More" id="{{ job.href }}" name="more" class="btn show-more btn-sm btn-block btn-outline-secondary">
-                </form>
-                <!--<a class="btn btn-outline-success btn-sm" href="#" target="_blank">APPLY</a>-->
-              </div>
-              
-              
-            </div>
-          </li>
-        {% endfor %}
-      </ul>
-      </div>
+    {% if jobs %}
+    <div class="card">
 
-      <div class="card col-sm" id="full-desc"> 
-  
         <div class="card-body">
-          
-        </div>
-          
-        </div></div>
+            <div id="jobs-cont">
+                <ul id="jobs" class="list-group">
+                    {% for job in jobs %}
+                    <li class="mb-50 list-group-item job {{ job.site }}">
+                        <h1 class="title">{{ job.title }}</h1>
+                        <p>Site: <a target="_blank" href="{{ job.site_url }}">{{ job.site }}</a></p>
+                        <div class="desc">
+                            <div class="meta-data">
+                                <p class="meta">{{ job.meta | safe }}</p>
+                                <div class="{{ job.site.upper() }}">
+                                    <a class="{{ job.site.upper() }}URL btn btn-sm btn-block btn-outline-secondary" href="{{ job.href }}" target="_blank">Apply on site</a>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
 
         </div>
-        
-  </div>
+
+    </div>
+
+</div>
 
 
-  {% else %}
-  <p class="center mt-100"><a href="#search">Start searching...</a></p>
-  {% endif %}
+{% else %}
+<p class="center mt-100"><a href="#search">Start searching...</a></p>
+{% endif %}
 </div>
 {% endblock content %}

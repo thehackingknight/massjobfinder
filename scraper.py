@@ -78,6 +78,7 @@ class Jobs():
 
             title = job.select_one('.title').get_text()
             href = job.select_one('.jobtitle')["href"]
+            href = f"https://indeed.com{href}"
             meta = job.select_one(".summary").get_text()
             meta = meta[0:351]
             job_list.append({"title": title,"meta" : meta, "href": href, "site" : "Indeed", "site_url" : "https://indeed.com"})
@@ -93,8 +94,8 @@ class Jobs():
     
             title = job.select_one('.job-card-head a').get_text()
             href = job.select_one('.job-card-head a')["href"]
+            href = f"https://careers24.com{href}"
             meta = job.select_one("ul")
-            #meta = meta[0:351]
             job_list.append({"title": title,"meta" : meta, "href": href, "site" : "Careers24", "site_url" : "https://careers24.com"})
         #print(job_list) 
         return job_list

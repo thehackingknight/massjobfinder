@@ -10,6 +10,12 @@ p {
     font-family: "Fira Code", "Helvetica Neue" !important
 }
 
+.plink {
+    color: #007bff;
+    text-decoration: underline;
+    font-size: 1.002rem;
+}
+
 h1.h1 {
     text-align: center
 }
